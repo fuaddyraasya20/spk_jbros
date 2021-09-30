@@ -1,0 +1,189 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <table id="tb_laptop"  class="display" style="width:1380px;">
+        <thead>
+            <tr>
+                <th colspan="3">Alternatif</th>
+                <th rowspan="2">Spesifikasi</th>
+                <th rowspan="2">Harga (Rp.)</th>
+            </tr>
+            <tr>
+                <th>Kode</th>
+                <th>Merk</th>
+                <th>Seri</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $sql = mysql_query("select * from tb_laptop");
+                {
+                    while ($hasil = mysql_fetch_array($sql))
+                    {
+                        $rupiah=number_format($hasil['harga'],0);
+                        ?>
+                        <tr>
+                            <td><?php echo "$hasil[id_laptop]" ?></td>
+                            <td><?php echo "$hasil[merk_laptop]" ?></td>
+                            <td><?php echo "$hasil[seri_laptop]" ?></td>
+                            <td><?php echo "$hasil[merk_procie] $hasil[seri_procie] $hasil[gen_procie] [$hasil[spd_procie]GHz], $hasil[jenis_ram] $hasil[kap_ram]GB, $hasil[merk_vga] $hasil[seri_vga] $hasil[gen_vga] $hasil[kap_vram]GB, $hasil[jenis_storage] $hasil[kap_storage]GB, $hasil[scr_size]' $hasil[scr_res]" ?></td>
+                            <td><?php echo "$rupiah" ?></td>
+                        </tr>                    
+                        <?php
+                    }
+                }
+            ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Kode</th>
+                <th>Merk</th>
+                <th>Seri</th>
+                <th>Spesifikasi</th>
+                <th>Harga (Rp.)</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+    <script>
+        $(document).ready(function() {
+            $('#tb_laptop').DataTable();
+    } );
+    </script>
+<div class="border-daftar" style="margin-bottom:50px; padding-bottom: 50px;">
+<h4>Daftar Kriteria</h4>
+    <table id="tb_kriteria"  class="display" style="width:1380px;">
+        <thead>
+            <tr>
+                <th>ID Kriteria</th>
+                <th>Kode Kriteria</th>
+                <th>Nama Kriteria</th>
+                <th>Tipe Kriteria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $urutan = 0;
+                $sql = mysql_query("select * from tb_kriteria");
+                {
+                    while ($hasil = mysql_fetch_array($sql)) 
+                    {
+                        $urutan++;
+                        ?>
+                        <tr>
+                            <td><?php echo "$hasil[idkriteria]" ?></td>
+                            <td><?php echo "C$urutan" ?></td>
+                            <td><?php echo "$hasil[nama_kriteria]" ?></td>
+                            <td><?php echo "$hasil[tipe_kriteria]" ?></td>
+                        </tr>                    
+                        <?php
+                    }
+                }
+            ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID Kriteria</th>
+                <th>Kode Kriteria</th>
+                <th>Nama Kriteria</th>
+                <th>Tipe Kriteria</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#tb_kriteria').DataTable();
+} );
+</script>
+<div class="border-daftar" style="margin-bottom:50px; padding-bottom: 50px;">
+    <h4>Hasil Analisa</h4>
+    <table id="tb_analisa"  class="display" style="width:1380px;">
+        <thead>
+            <tr>
+                <td colspan="3"><b>Alternatif (A)</b></td>
+                <td colspan="13"><b>Kriteria (C)</b></td>
+            </tr>
+            <tr>
+                <th>Kode</th>
+                <th>Merk</th>
+                <th>Seri</th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C3</th>
+                <th>C4</th>
+                <th>C5</th>
+                <th>C6</th>
+                <th>C7</th>
+                <th>C8</th>
+                <th>C9</th>
+                <th>C10</th>
+                <th>C11</th>
+                <th>C12</th>
+                <th>C13</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $urutan = 0;
+                $sql = mysql_query("select * from tb_laptop");
+                {
+                    while ($hasil = mysql_fetch_array($sql)) 
+                    {
+                        $rupiah=number_format($hasil['harga']);
+                        $urutan++;
+                        ?>
+                        <tr>
+                            <td><?php echo "$hasil[id_laptop]" ?></td>
+                            <td><?php echo "$hasil[merk_laptop]" ?></td>
+                            <td><?php echo "$hasil[seri_laptop]" ?></td>
+                            <td><?php echo "$hasil[nilai_seri_procie]" ?></td>
+                            <td><?php echo "$hasil[gen_procie]" ?></tD>
+                            <td><?php echo "$hasil[spd_procie]" ?></td>
+                            <td><?php echo "$hasil[nilai_jenis_ram]" ?></td>
+                            <td><?php echo "$hasil[kap_ram]" ?></td>
+                            <td><?php echo "$hasil[nilai_seri_vga]" ?></td>
+                            <td><?php echo "$hasil[gen_vga]" ?></td>
+                            <td><?php echo "$hasil[kap_vram]" ?></td>
+                            <td><?php echo "$hasil[nilai_jenis_storage]" ?></td>
+                            <td><?php echo "$hasil[kap_storage]" ?></td>
+                            <td><?php echo "$hasil[scr_size]" ?></td>
+                            <td><?php echo "$hasil[nilai_scr_res]" ?></td>
+                            <td><?php echo "$rupiah" ?></td>
+                            </tr>                   
+                        <?php
+                    }
+                }
+            ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Kode</th>
+                <th>Merk</th>
+                <th>Seri</th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C3</th>
+                <th>C4</th>
+                <th>C5</th>
+                <th>C6</th>
+                <th>C7</th>
+                <th>C8</th>
+                <th>C9</th>
+                <th>C10</th>
+                <th>C11</th>
+                <th>C12</th>
+                <th>C13</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+    <script>
+        $(document).ready(function() {
+            $('#tb_analisa').DataTable();
+    } );
+    </script>
+    </div>            
+</div>
+</body>
+</html>

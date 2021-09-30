@@ -1,0 +1,32 @@
+<html>
+    <head><link rel="stylesheet" href="assets admin/body.css"></head>
+    <body>
+        <div class="main">
+            <h2>Sistem Penunjang Keputusan Pemilihan Laptop <span>J-Bros Computer</span> Padang</h2>
+            <div class="jam"><span id="datetime"></span></p>
+                <script>
+                var dt = new Date();
+                document.getElementById("datetime").innerHTML = ("Hari ini Tanggal : "+("0"+dt.getDate()).slice(-2)) +"/"+ (("0"+(dt.getMonth()+1)).slice(-2)) +"/"+ (dt.getFullYear()) +"</br>Saat ini Jam : "+ (("0"+dt.getHours()).slice(-2)) +":"+ (("0"+dt.getMinutes()).slice(-2));
+                </script>
+            </div>
+            <div class="daftar-laptop">
+            <div class="text1">
+                <h6>Halo <span style="color: #5f9bce;">Pelanggan kami</span></h6>
+                <p><span style="color: #5f9bce;">Pelanggan kami</span>, anda dapat melakukan aktivitas sebagai berikut :</p>
+                <h7 style="font-size: 14px;"><span style="color: red;">Note : Silahkan klik tulisan biru di bawah untuk menuju aktivitas Pelanggan</span></h7>
+                <p>1. <a href="Laptop.php" style="color: #5f9bce; text-decoration: none;">Melihat daftar Laptop</a></p>
+                <p>2. <a href="Kriteria.php" style="color: #5f9bce; text-decoration: none;">Melihat Kriteria Perhitungan Laptop</a></p>
+                <p>3. Melihat hasil perhitungan, seperti :</p>
+                <p class="subP">a. <a href="Analisa.php" style="color: #5f9bce; text-decoration: none;">Hasil Analisa</a></p>
+                <p class="subP">b. <a href="Normalisasi.php" style="color: #5f9bce; text-decoration: none;">Hasil Normalisasi</a></p>
+                <p class="subP">c. <a href="Ranking.php" style="color: #5f9bce; text-decoration: none;">Ranking Laptop</a></p>
+                <p>4. Melihat informasi terkait, seperti :</p>
+                <p class="subP">a. <a href="Tentang_Perusahaan.php?id_judul=jbros" style="color: #5f9bce; text-decoration: none;">Perusahaan <span style="color: red; text-decoration: none;">J-Bros Computer</span></a></p>
+                <p class="subP">b. <a href="Tentang_Laptop.php?id_judul=laptop" style="color: #5f9bce; text-decoration: none;">Tentang Laptop</a></p>
+                <p class="subP">c. <a href="Tentang_Sistem.php?id_judul=sistem" style="color: #5f9bce; text-decoration: none;">Tentang Sistem Pendukung Keputusan Metode <i>Simple Additive Weighting</i></a></p>
+                <p class="subP">d. <a href="Tentang_Panduan.php?id_judul=panduan" style="color: #5f9bce; text-decoration: none;">Tentang Panduan Penggunaan Aplikasi Ini</a></p>
+            </div>
+            <p style="text-align: right; margin-right: 70px;">Best Regards, <p style="text-align: right; color: red; margin-right: 70px;">J-Bros Computer</p></p>
+        </div> 
+    </body>
+</html>

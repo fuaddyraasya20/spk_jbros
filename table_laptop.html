@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<div class="border-daftar" style="padding: 25px 50px;">
+    <table id="tb_laptop"  class="display" style="width:1250px;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Merk</th>
+                <th>Seri</th>
+                <th>Spesifikasi</th>
+                <th>Harga (Rp.)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $sql = mysqli_query($koneksi,"select * from tb_laptop");
+                {
+                    while ($hasil = mysqli_fetch_array($sql))
+                    {
+                        $rupiah=number_format($hasil['harga'],0);
+                        ?>
+                        <script>
+                            function hapus ()
+                            { return confirm ("Hapus Laptop ini ?"); }
+                        </script>
+                        <tr>
+                            <td><?php echo "$hasil[id_laptop]" ?></td>
+                            <td><?php echo "$hasil[merk_laptop]" ?></td>
+                            <td><?php echo "$hasil[seri_laptop]" ?></td>
+                            <td><?php echo "$hasil[merk_procie] $hasil[seri_procie] $hasil[gen_procie] [$hasil[spd_procie]GHz], $hasil[jenis_ram] $hasil[kap_ram]GB, $hasil[merk_vga] $hasil[seri_vga] $hasil[gen_vga] $hasil[kap_vram]GB, $hasil[jenis_storage] $hasil[kap_storage]GB, $hasil[scr_size]' $hasil[scr_res]" ?></td>
+                            <td><?php echo "$rupiah" ?></td>
+                        </tr>                    
+                        <?php
+                    }
+                }
+            ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Merk</th>
+                <th>Seri</th>
+                <th>Spesifikasi</th>
+                <th>Harga (Rp.)</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+    <script>
+        $(document).ready(function() {
+            $('#tb_laptop').DataTable();
+    } );
+    </script>
+</div>
+</body>
+</html>

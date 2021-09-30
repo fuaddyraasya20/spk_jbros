@@ -1,0 +1,213 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<div class="border-daftar" style="padding: 25px 50px;">
+    <h4>Bobot</h4>
+    <table id="tb_bobot"  class="display" style="width:1380px;">
+        <thead>
+            <tr>
+                <th rowspan="2" >#</th>
+                <th colspan="13" >Kode Kriteria</th>
+            </tr>
+            <tr>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C3</th>
+                <th>C4</th>
+                <th>C5</th>
+                <th>C6</th>
+                <th>C7</th>
+                <th>C8</th>
+                <th>C9</th>
+                <th>C10</th>
+                <th>C11</th>
+                <th>C12</th>
+                <th>C13</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            $sqlbobot = mysql_query("SELECT * FROM tb_bobot");
+            while ($bobot = mysql_fetch_array($sqlbobot))
+            {
+                $totalbobot = round($bobot[0]+$bobot[1]+$bobot[2]+$bobot[3]+$bobot[4]+$bobot[5]+$bobot[6]+$bobot[7]+$bobot[8]+$bobot[9]+$bobot[10]+$bobot[11]+$bobot[12],2);
+                echo"
+                <tr>
+                    <td>Nilai</td>
+                    <td>".$bobot[0]."</td>
+                    <td>".$bobot[1]."</td>
+                    <td>".$bobot[2]."</td>
+                    <td>".$bobot[3]."</td>
+                    <td>".$bobot[4]."</td>
+                    <td>".$bobot[5]."</td>
+                    <td>".$bobot[6]."</td>
+                    <td>".$bobot[7]."</td>
+                    <td>".$bobot[8]."</td>
+                    <td>".$bobot[9]."</td>
+                    <td>".$bobot[10]."</td>
+                    <td>".$bobot[11]."</td>
+                    <td>".$bobot[12]."</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th colspan='13' style='color: red;'>".$totalbobot."</th>
+                </tr>";
+            }
+        ?>
+        </tfoot>
+    </table>
+    <p style="color: red;">Total Nilai Bobot Tidak Boleh KURANG atau LEBIH dari 1.00</p>
+    <script>
+        $(document).ready(function() {
+            $('#tb_bobot').DataTable();
+    } );
+    </script>
+</div>
+<div class="border-daftar" style="padding: 25px 50px;">
+    <h4>Tabel Ranking Alternatif Laptop</h4>
+    <table id="tb_ranking"  class="display" style="width:100%;">
+        <thead>
+            <tr>
+                <th rowspan="2">Kode</th>
+                <th rowspan="2">Alternatif</th>
+                <th rowspan="2">Harga (Rp.)</th>
+                <th colspan="13">Nilai Kriteria</th>
+                <th rowspan="2">Ranking</th>
+            </tr>
+            <tr>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C3</th>
+                <th>C4</th>
+                <th>C5</th>
+                <th>C6</th>
+                <th>C7</th>
+                <th>C8</th>
+                <th>C9</th>
+                <th>C10</th>
+                <th>C11</th>
+                <th>C12</th>
+                <th>C13</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $sqlbobot = mysql_query("SELECT c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13 FROM tb_bobot");
+                while ($row = mysql_fetch_array($sqlbobot))
+                {
+                    $c1 = $row[0];
+                    $c2 = $row[1];
+                    $c3 = $row[2];
+                    $c4 = $row[3];
+                    $c5 = $row[4];
+                    $c6 = $row[5];
+                    $c7 = $row[6];
+                    $c8 = $row[7];
+                    $c9 = $row[8];
+                    $c10 = $row[9];
+                    $c11 = $row[10];
+                    $c12 = $row[11];
+                    $c13 = $row[12];
+                }
+
+                $crmaxmin = mysql_query("SELECT 
+                                max(nilai_seri_procie) as maxC1, 
+                                max(gen_procie) as maxC2, 
+                                max(spd_procie) as maxC3, 
+                                max(nilai_jenis_ram) as maxC4, 
+                                max(kap_ram) as maxC5, 
+                                max(nilai_seri_vga) as maxC6, 
+                                max(gen_vga) as maxC7, 
+                                max(kap_vram) as maxC8, 
+                                max(nilai_jenis_storage) as maxC9, 
+                                max(kap_storage) as maxC10, 
+                                max(scr_size) as maxC11, 
+                                max(nilai_scr_res) as maxC12, 
+                                min(harga) as minC13 
+                                FROM tb_laptop");
+                                                
+                $maxmin=mysql_fetch_array($crmaxmin);
+
+                $urutan = 0;
+                $sql = mysql_query("select * from tb_laptop");
+                {
+                    while ($hasil = mysql_fetch_array($sql))
+                    {
+                        $rupiah=number_format($hasil['harga']);
+                        $urutan++;
+                        $ranking = round
+                        (
+                            (($hasil['nilai_seri_procie']/$maxmin['maxC1'])*$c1)+
+                            (($hasil['gen_procie']/$maxmin['maxC2'])*$c2)+
+                            (($hasil['spd_procie']/$maxmin['maxC3'])*$c3)+
+                            (($hasil['nilai_jenis_ram']/$maxmin['maxC4'])*$c4)+
+                            (($hasil['kap_ram']/$maxmin['maxC5'])*$c5)+
+                            (($hasil['nilai_seri_vga']/$maxmin['maxC6'])*$c6)+
+                            (($hasil['gen_vga']/$maxmin['maxC7'])*$c7)+
+                            (($hasil['kap_vram']/$maxmin['maxC8'])*$c8)+
+                            (($hasil['nilai_jenis_storage']/$maxmin['maxC9'])*$c9)+
+                            (($hasil['kap_storage']/$maxmin['maxC10'])*$c10)+
+                            (($hasil['scr_size']/$maxmin['maxC11'])*$c11)+
+                            (($hasil['nilai_scr_res']/$maxmin['maxC12'])*$c12)+
+                            (($maxmin['minC13']/$hasil['harga'])*$c13)
+                        ,3);
+                        echo
+                        "
+                            <tr>
+                                <td>$hasil[id_laptop]</td>
+                                <td>$hasil[merk_laptop] - $hasil[seri_laptop]</td>
+                                <td>$rupiah</td>
+                                <td>".round((($hasil['nilai_seri_procie']/$maxmin['maxC1'])*$c1),3)."</td>
+                                <td>".round((($hasil['gen_procie']/$maxmin['maxC2'])*$c2),3)."</td>
+                                <td>".round((($hasil['spd_procie']/$maxmin['maxC3'])*$c3),3)."</td>
+                                <td>".round((($hasil['nilai_jenis_ram']/$maxmin['maxC4'])*$c4),3)."</td>
+                                <td>".round((($hasil['kap_ram']/$maxmin['maxC5'])*$c5),3)."</td>
+                                <td>".round((($hasil['nilai_seri_vga']/$maxmin['maxC6'])*$c6),3)."</td>
+                                <td>".round((($hasil['gen_vga']/$maxmin['maxC7'])*$c7),3)."</td>
+                                <td>".round((($hasil['kap_vram']/$maxmin['maxC8'])*$c8),3)."</td>
+                                <td>".round((($hasil['nilai_jenis_storage']/$maxmin['maxC9'])*$c9),3)."</td>
+                                <td>".round((($hasil['kap_storage']/$maxmin['maxC10'])*$c10),3)."</td>
+                                <td>".round((($hasil['scr_size']/$maxmin['maxC11'])*$c11),3)."</td>
+                                <td>".round((($hasil['nilai_scr_res']/$maxmin['maxC12'])*$c12),3)."</td>
+                                <td>".round((($maxmin['minC13']/$hasil['harga'])*$c13),3)."</td>
+                                <td>$ranking</td>
+                            </tr>
+                        ";
+                    }
+                }
+            ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Kode</th>
+                <th>Alternatif</th>
+                <th>Harga (Rp.)</th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C3</th>
+                <th>C4</th>
+                <th>C5</th>
+                <th>C6</th>
+                <th>C7</th>
+                <th>C8</th>
+                <th>C9</th>
+                <th>C10</th>
+                <th>C11</th>
+                <th>C12</th>
+                <th>C13</th>
+                <th>Ranking</th>
+            </tr>
+        </tfoot>
+    </table>
+    <span style="color: red; text-align: center;">Note : Nilai Ranking TERBESAR adalah Laptop TERBAIK</span>
+    <script>
+        $(document).ready(function() {
+            $('#tb_ranking').DataTable();
+    } );
+    </script>
+</div>          
+</div>
+    </body>
+</html>

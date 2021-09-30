@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+                <?php
+                    $bobot = array (0.05 , 0.12 , 0.05 , 0.12 , 0.12 , 0.05 , 0.05 , 0.05 , 0.12 , 0.12 , 0.05 , 0.05 , 0.05);
+                                        
+                    $crmaxmin = mysql_query("SELECT 
+                                max(nilai_seri_procie) as maxC1, 
+                                max(gen_procie) as maxC2, 
+                                max(spd_procie) as maxC3, 
+                                max(nilai_jenis_ram) as maxC4, 
+                                max(kap_ram) as maxC5, 
+                                max(nilai_seri_vga) as maxC6, 
+                                max(gen_vga) as maxC7, 
+                                max(kap_vram) as maxC8, 
+                                max(nilai_jenis_storage) as maxC9, 
+                                max(kap_storage) as maxC10, 
+                                max(scr_size) as maxC11, 
+                                max(nilai_scr_res) as maxC12, 
+                                min(harga) as minC13 
+                                FROM tb_laptop");
+                                                
+                    $minmax=mysql_fetch_array($crmaxmin);
+                ?>
+                <table id="tb_normalisasi"  class="display" style="width:1300px;">
+                    <thead>
+                        <tr>
+                            <th>Alternatif (A)</th>
+                            <th colspan="13">Kriteria (C)</th>
+                        </tr>
+                        <tr>
+                            <th>Kode</th>
+                            <th>C1</th>
+                            <th>C2</th>
+                            <th>C3</th>
+                            <th>C4</th>
+                            <th>C5</th>
+                            <th>C6</th>
+                            <th>C7</th>
+                            <th>C8</th>
+                            <th>C9</th>
+                            <th>C10</th>
+                            <th>C11</th>
+                            <th>C12</th>
+                            <th>C13</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $urutan = 0;
+                            $sql = mysql_query("select * from tb_laptop");
+                            {
+                                while ($hasil = mysql_fetch_array($sql)) 
+                                {
+                                    echo "
+                                    <tr>
+                                        <td>$hasil[id_laptop]</td>
+                                        <td>".round($hasil['nilai_seri_procie']/$minmax['maxC1'],3)."</td>
+                                        <td>".round($hasil['gen_procie']/$minmax['maxC2'],3)."</td>
+                                        <td>".round($hasil['spd_procie']/$minmax['maxC3'],3)."</td>
+                                        <td>".round($hasil['nilai_jenis_ram']/$minmax['maxC4'],3)."</td>
+                                        <td>".round($hasil['kap_ram']/$minmax['maxC5'],3)."</td>
+                                        <td>".round($hasil['nilai_seri_vga']/$minmax['maxC6'],3)."</td>
+                                        <td>".round($hasil['gen_vga']/$minmax['maxC7'],3)."</td>
+                                        <td>".round($hasil['kap_vram']/$minmax['maxC8'],3)."</td>
+                                        <td>".round($hasil['nilai_jenis_storage']/$minmax['maxC9'],3)."</td>
+                                        <td>".round($hasil['kap_storage']/$minmax['maxC10'],3)."</td>
+                                        <td>".round($hasil['scr_size']/$minmax['maxC11'],3)."</td>
+                                        <td>".round($hasil['nilai_scr_res']/$minmax['maxC12'],3)."</td>
+                                        <td>".round($minmax['minC13']/$hasil['harga'],3)."</td>
+                                    </tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                    <tfoot>
+                        <th>Kode</th>
+                        <th>C1</th>
+                        <th>C2</th>
+                        <th>C3</th>
+                        <th>C4</th>
+                        <th>C5</th>
+                        <th>C6</th>
+                        <th>C7</th>
+                        <th>C8</th>
+                        <th>C9</th>
+                        <th>C10</th>
+                        <th>C11</th>
+                        <th>C12</th>
+                        <th>C13</th>
+                    </tfoot>
+                </table>
+                <script>
+                    $(document).ready(function() {
+                        $('#tb_normalisasi').DataTable();
+                } );
+                </script>
+            </div>          
+        </div>
+    </body>
+</html>
